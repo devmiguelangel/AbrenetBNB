@@ -51,10 +51,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productBox: {
-    width: 150,
+    width: 160,
     height: 150,
     marginVertical: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     paddingVertical: 12,
     paddingHorizontal: 12,
     backgroundColor: 'white',
