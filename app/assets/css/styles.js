@@ -51,7 +51,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   productBox: {
-    width: 160,
+    width: Platform.select({
+      ios: 150,
+      android: 160,
+    }),
     height: 150,
     marginVertical: 10,
     marginHorizontal: 15,
