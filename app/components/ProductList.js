@@ -15,28 +15,7 @@ export default class ProductList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [
-        {
-          name: 'Desgravamen',
-          icon: 'home',
-          color: '#81C784',
-        },
-        {
-          name: 'Automotores',
-          icon: 'directions-car',
-          color: '#55C0E6',
-        },
-        {
-          name: 'Todo Riesgo',
-          icon: 'gavel',
-          color: '#F96F57',
-        },
-        {
-          name: 'Reportes',
-          icon: 'assessment',
-          color: '#FECD60',
-        },
-      ]
+      
     }
   }
 
@@ -45,23 +24,41 @@ export default class ProductList extends Component {
 
     return (
       <ScrollView style={styles.productList}>
-        <View style={styles.productListBox}>
-          {
-            products.map((product, index) => {
-              return (
-                <TouchableOpacity activeOpacity={0.5} key={index}>
-                  <View style={[styles.productBox, { backgroundColor: product.color }]}>
-                    <View style={{ flex: 1 }}>
-                      <Icon name={product.icon} size={60} color="white" />
-                    </View>
-                    <Text style={styles.productTitle}>
-                      {product.name}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )
-            })
-          }
+        <View style={styles.productRow}>
+          <TouchableOpacity style={styles.productTouch} activeOpacity={0.5}>
+            <View style={[styles.productBox, { backgroundColor: '#81C784' }]}>
+              <View style={styles.productIcon}>
+                <Icon name="home" size={60} color="white" />
+              </View>
+              <Text style={styles.productTitle}>Desgravamen</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productTouch} activeOpacity={0.5}>
+                <View style={[styles.productBox, { backgroundColor: '#55C0E6' }]}>
+              <View style={styles.productIcon}>
+                <Icon name="directions-car" size={60} color="white" />
+              </View>
+              <Text style={styles.productTitle}>Automotores</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.productRow}>
+          <TouchableOpacity style={styles.productTouch} activeOpacity={0.5}>
+            <View style={[styles.productBox, { backgroundColor: '#F96F57' }]}>
+              <View style={styles.productIcon}>
+                <Icon name="gavel" size={60} color="white" />
+              </View>
+              <Text style={styles.productTitle}>Todo Riesgo</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.productTouch} activeOpacity={0.5}>
+                <View style={[styles.productBox, { backgroundColor: '#FECD60' }]}>
+              <View style={styles.productIcon}>
+                <Icon name="assessment" size={60} color="white" />
+              </View>
+              <Text style={styles.productTitle}>Reportes</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     )

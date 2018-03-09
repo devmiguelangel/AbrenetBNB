@@ -40,55 +40,36 @@ const styles = StyleSheet.create({
     height: 76
   },
   productList: {
-    flex: 2,
+    flex: 1,
     alignSelf: 'stretch',
+    marginBottom: 10,
     // backgroundColor: 'rgba(20, 149, 95, 0.3)', // #14955F
     // backgroundColor: 'rgba(26, 170, 142, 0.7)', // #1AAA8E
   },
-  productListBox: {
+  productRow: {
+    alignSelf: 'stretch',
+    height: 160,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    paddingHorizontal: 10,
+    alignItems: 'center',
+  },
+  productTouch: {
+    flex: 1,
   },
   productBox: {
-    width: Platform.select({
-      ios: 150,
-      android: 160,
-    }),
-    height: 150,
-    marginVertical: 10,
-    marginHorizontal: 15,
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    backgroundColor: 'white',
+    flex: 1,
+    height: 160,
+    padding: 12,
     flexDirection: 'column',
-    // backgroundColor: '#A1D36E'
+  },
+  productIcon: {
+    flex: 1,
   },
   productTitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: 'white',
     fontFamily: 'Quicksand-Bold',
   },
-  navBarBottom: {
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    height: 50,
-    backgroundColor: '#f7f8ff',
-  },
-  navBarBottomBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  navBarBottomView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  navBarBottomText: {
-    fontSize: 10,
-    fontWeight: 'normal',
-    color: '#576574',
-  }
 });
 
 export default styles;

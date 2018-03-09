@@ -7,13 +7,20 @@ import {
   StatusBar,
   TouchableOpacity
 } from 'react-native';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 import ProductList from './ProductList';
-import NavBarBottom from './NavBarBottom';
 
 import { styles, images } from '@assets';
 
 export default class Home extends Component {
+  static navigationOptions = {
+    tabBarLabel: 'Inicio',
+    tabBarIcon: ({tintColor}) => (
+      <Icons name="ios-home" size={20} color={tintColor} />
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -30,8 +37,6 @@ export default class Home extends Component {
         </View>
         
         <ProductList />
-
-        <NavBarBottom />
       </View>
     );
   }
