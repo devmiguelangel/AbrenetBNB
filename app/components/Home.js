@@ -3,15 +3,24 @@ import {
   Platform,
   Text,
   View,
-  Image,
-  StatusBar,
   TouchableOpacity
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import ProductList from './ProductList';
+import ProductDe from './products/de/ProductDe';
 
-import { styles, images } from '@assets';
+const HomeApp = StackNavigator({
+  ProductList: {
+    screen: ProductList
+  },
+  ProductDe: {
+    screen: ProductDe
+  },
+}, {
+  // headerMode: 'none',
+});
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -23,21 +32,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar
-          backgroundColor="#1e272e"
-          barStyle="light-content"
-        />
-
-        <View style={styles.header}>
-          <View style={styles.headerBox}>
-            <Text style={styles.headerText}>Seguros</Text>
-            <Image style={styles.headerLogo} source={images.logo} />
-          </View>
-        </View>
-        
-        <ProductList />
-      </View>
+      <HomeApp />
     );
   }
 }
