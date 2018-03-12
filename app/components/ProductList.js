@@ -14,13 +14,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { styles, images } from '@assets';
 
 export default class ProductList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    }
-  }
-
   static navigationOptions = {
     header: null,
   }
@@ -30,8 +23,6 @@ export default class ProductList extends Component {
   }
 
   render () {
-    const { products } = this.state;
-
     return (
       <View style={styles.container}>
         <StatusBar

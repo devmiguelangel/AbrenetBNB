@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
   },
   productRow: {
     alignSelf: 'stretch',
-    height: 160,
+    height: 165,
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     alignItems: 'center',
   },
   productTouch: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   productBox: {
     flex: 1,
-    height: 160,
+    height: 165,
     padding: 12,
     flexDirection: 'column',
   },
@@ -70,6 +70,20 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Quicksand-Bold',
   },
+
+  // Forms
+  formTitle: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    padding: 8,
+    backgroundColor: '#e8eff2',
+  },
+  formTitleText: {
+    fontSize: 11,
+    color: '#37474F',
+    marginLeft: 10,
+    fontFamily: 'Quicksand-Medium',
+  }
 });
 
 export default styles;

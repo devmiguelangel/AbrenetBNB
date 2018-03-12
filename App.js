@@ -3,7 +3,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  YellowBox
 } from 'react-native';
 import { TabNavigator } from 'react-navigation';
 
@@ -11,6 +12,11 @@ import Home from './app/components/Home';
 import User from './app/components/user/User';
 import Report from './app/components/reports/Report';
 import Notification from './app/components/notifications/Notification';
+
+YellowBox.ignoreWarnings([
+  'Warning: componentWillMount is deprecated',
+  'Warning: componentWillReceiveProps is deprecated',
+]);
 
 const App = TabNavigator({
   Home: { screen: Home },
