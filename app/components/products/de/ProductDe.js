@@ -5,9 +5,12 @@ import {
   TextInput,
   Picker,
   Platform,
-  Animated,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import _ from 'underscore';
+
+import PickerView from './../../PickerView';
 
 import { styles } from '@assets';
 
@@ -18,19 +21,102 @@ export default class ProductDe extends Component {
     headerStyle: {
       backgroundColor: '#81C784',
     },
-    headerTintColor: 'white'
+    headerTintColor: 'white',
   }
 
   constructor(props) {
     super(props);
     this.state = {
       coverage: '',
-      amount_requested: '',
+      coverageText: 'Tipo de cobertura...',
+      coverages: [],
+      amountRequested: '',
       currency: '',
+      currencyText: 'Moneda...',
+      currencies: [],
       term: '',
-      type_term: '',
-      credit_product: '',
+      typeTerm: '',
+      typeTermText: 'Tipo de plazo...',
+      typeTerms: [],
+      creditProduct: '',
+      creditProductText: 'Tipo de producto...',
+      creditProducts: [],
     }
+  }
+
+  componentDidMount = () => {
+    const coverages = [
+      { 'value': 1, 'label': 'Individual', },
+      { 'value': 2, 'label': 'Mancomunado (Afiliación al 100% para cada codeudor)', },
+      { 'value': 4, 'label': 'Codeudor (Afiliación en porcentajes para cada codeudor)', },
+    ];
+
+    const currencies = [
+      { 'value': 'BS', 'label': 'Bolivianos', },
+      { 'value': 'USD', 'label': 'Dolares', },
+    ];
+    
+    const typeTerms = [
+      { 'value': "Y", 'label': "Años", },
+      { 'value': "M", 'label': "Meses", },
+      { 'value': "W", 'label': "Semanas", },
+      { 'value': "D", 'label': "Días", },
+    ];
+
+    const creditProducts = [
+      { 'value': "1", 'label': "Consumo", },
+      { 'value': "2", 'label': "Comercial", },
+      { 'value': "3", 'label': "Hipotecario de Vivienda, Vivienda Social o Automotor", },
+      { 'value': "4", 'label': "Tarjetas", },
+      { 'value': "5", 'label': "Otros", },
+      { 'value': "7", 'label': "Asalariado 7x5", },
+      { 'value': "8", 'label': "Línea Licitada", },
+      { 'value': "9", 'label': "Línea no Licitada", },
+    ];
+
+    this.setState({
+      coverages: coverages,
+      currencies: currencies,
+      typeTerms: typeTerms,
+      creditProducts: creditProducts,
+    });
+  }
+  
+
+  handleCoverage = (itemValue) => {
+    let c = _.first(_.filter(this.state.coverages, (coverage) => (coverage.value == itemValue)));
+    
+    this.setState({
+      coverage: c.value,
+      coverageText: c.label,
+    });
+  }
+  
+  handleCurrency = (itemValue) => {
+    let c = _.first(_.filter(this.state.currencies, (currency) => (currency.value == itemValue)));
+    
+    this.setState({
+      currency: c.value,
+      currencyText: c.label,
+    });
+  }
+  
+  handleTypeTerm = (itemValue) => {
+    let c = _.first(_.filter(this.state.typeTerms, (typeTerm) => (typeTerm.value == itemValue)));
+    
+    this.setState({
+      typeTerm: c.value,
+      typeTermText: c.label,
+    });
+  }
+  
+  handleCreditProduct = (itemValue) => {
+    let c = _.first(_.filter(this.state.creditProducts, (creditProduct) => (creditProduct.value == itemValue)));
+    
+    this.setState({
+      creditProduct: c.value,
+      creditProductText: c.label,
+    });
   }
 
   render() {
@@ -42,81 +128,179 @@ export default class ProductDe extends Component {
           <Text style={styles.formTitleText}>DATOS DEL PRESTAMO</Text>
         </View>
 
-        <View style={{ flexDirection: 'row', }}>
-          <View style={{ flex: 1, }}>
-            { Platform.OS === 'ios' ? (
-              <TouchableHighlight underlayColor="transparent" onPress={() => this.setState({ modal: true })}>
-                <Text>Cobertura</Text>
-              </TouchableHighlight>
+        <View style={styles.formView}>
+          <View style={styles.formBox}>
+          {Platform.OS === 'ios' ? (
+            <TouchableOpacity activeOpacity={0.4} onPress={() => this.pickerCoverage._handlePressOpen()}>
+              <View style={styles.formGroup}>
+                <Text style={styles.formText}>{this.state.coverageText}</Text>
+                <View style={styles.formGroupIcon}>
+                  <Icon name="keyboard-arrow-down" size={20} color="#37474F" />
+                </View>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.formGroup}>
+              <View style={styles.formBox}>
+                <Picker
+                  style={styles.formPicker}
+                  selectedValue={this.state.coverage}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ coverage: itemValue })}>
+                  <Picker.Item label={this.state.coverageText} value="" />
+                  {
+                    this.state.coverages.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                  }
+                </Picker>
+              </View>
+            </View>
+          )}
+          </View>
+        </View>
+
+        <View style={styles.formView}>
+          <View style={styles.formBox}>
+            <View style={styles.formGroup}>
+              <TextInput
+                style={styles.formText}
+                onChangeText={(amountRequested) => this.setState({ amountRequested })}
+                value={this.state.amountRequested}
+                keyboardType="numeric"
+                placeholder="Monto solicitado"
+                underlineColorAndroid="transparent"
+              />
+            </View>
+          </View>
+          <View style={styles.formBox}>
+            <View style={styles.formBox}>
+            {Platform.OS === 'ios' ? (
+              <TouchableOpacity activeOpacity={0.4} onPress={() => this.pickerCurrency._handlePressOpen()}>
+                <View style={styles.formGroup}>
+                  <Text style={styles.formText}>{this.state.currencyText}</Text>
+                  <View style={styles.formGroupIcon}>
+                    <Icon name="keyboard-arrow-down" size={20} color="#37474F" />
+                  </View>
+                </View>
+              </TouchableOpacity>
             ) : (
-              <Picker
-                selectedValue={this.state.coverage}
-                onValueChange={(itemValue, itemIndex) => this.setState({ coverage: itemValue })}>
-                <Picker.Item itemStyle label="Tipo de cobertura" value="" />
-                <Picker.Item label="Individual" value="1" />
-                <Picker.Item label="Mancomunado (Afiliación al 100% para cada codeudor)" value="2" />
-                <Picker.Item label="Codeudor (Afiliación en porcentajes para cada codeudor)" value="4" />
-              </Picker>
-              ) 
-            }
+              <View style={styles.formBoxPicker}>
+                <Picker
+                  style={styles.formPicker}
+                  selectedValue={this.state.currency}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ currency: itemValue })}>
+                  <Picker.Item label={this.state.currencyText} value="" />
+                  {
+                    this.state.currencies.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                  }
+                </Picker>
+              </View>
+            )}
+            </View>
+          </View>
+        </View>
+        
+        <View style={styles.formView}>
+          <View style={styles.formBox}>
+            <View style={styles.formGroup}>
+              <TextInput
+                style={styles.formText}
+                onChangeText={(term) => this.setState({ term })}
+                value={this.state.term}
+                keyboardType="numeric"
+                placeholder="Plazo del crédito"
+                underlineColorAndroid="transparent"
+              />
+            </View>
+          </View>
+          <View style={styles.formBox}>
+            <View style={styles.formBox}>
+            {Platform.OS === 'ios' ? (
+              <TouchableOpacity activeOpacity={0.4} onPress={() => this.pickerTypeTerm._handlePressOpen()}>
+                <View style={styles.formGroup}>
+                  <Text style={styles.formText}>{this.state.typeTermText}</Text>
+                  <View style={styles.formGroupIcon}>
+                    <Icon name="keyboard-arrow-down" size={20} color="#37474F" />
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.formBoxPicker}>
+                <Picker
+                  style={styles.formPicker}
+                  selectedValue={this.state.typeTerm}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ typeTerm: itemValue })}>
+                  <Picker.Item label={this.state.typeTermText} value="" />
+                  {
+                    this.state.typeTerms.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                  }
+                </Picker>
+              </View>
+            )}
+            </View>
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', }}>
-          <TextInput
-            style={{ flex: 1, }}
-            onChangeText={(amount_requested) => this.setState({ amount_requested })}
-            value={this.state.amount_requested}
-            keyboardType="numeric"
-            placeholder="Monto solicitado"
-          />
-          <View style={{ flex: 1, }}>
-            <Picker
-              selectedValue={this.state.currency}
-              onValueChange={(itemValue, itemIndex) => this.setState({ currency: itemValue })}>
-              <Picker.Item label="Bolivianos" value="BS" />
-              <Picker.Item label="Dolares" value="USD" />
-            </Picker>
+        <View style={styles.formView}>
+          <View style={styles.formBox}>
+          {Platform.OS === 'ios' ? (
+            <TouchableOpacity activeOpacity={0.4} onPress={() => this.pickerCreditProduct._handlePressOpen()}>
+              <View style={styles.formGroup}>
+                <Text style={styles.formText}>{this.state.creditProductText}</Text>
+                <View style={styles.formGroupIcon}>
+                  <Icon name="keyboard-arrow-down" size={20} color="#37474F" />
+                </View>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.formGroup}>
+              <View style={styles.formBox}>
+                <Picker
+                  style={styles.formPicker}
+                  selectedValue={this.state.creditProduct}
+                  onValueChange={(itemValue, itemIndex) => this.setState({ creditProduct: itemValue })}>
+                  <Picker.Item label={this.state.creditProductText} value="" />
+                  {
+                    this.state.creditProducts.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                  }
+                </Picker>
+              </View>
+            </View>
+          )}
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
-          <TextInput
-            style={{ flex: 1 }}
-            onChangeText={(term) => this.setState({ term })}
-            value={this.state.term}
-            keyboardType="numeric"
-            placeholder="Plazo del crédito"
-          />
-          <View style={{ flex: 1, }}>
-            <Picker
-              selectedValue={this.state.type_term}
-              onValueChange={(itemValue, itemIndex) => this.setState({ type_term: itemValue })}>
-              <Picker.Item label="Años" value="Y" />
-              <Picker.Item label="Meses" value="M" />
-              <Picker.Item label="Semanas" value="W" />
-              <Picker.Item label="Días" value="D" />
-            </Picker>
-          </View>
-        </View>
+        
 
-        <View style={{ flexDirection: 'row', }}>
-          <View style={{ flex: 1, }}>
-            <Picker
-              selectedValue={this.state.credit_product}
-              onValueChange={(itemValue, itemIndex) => this.setState({ credit_product: itemValue })}>
-              <Picker.Item label="Producto" value="" />
-              <Picker.Item label="Consumo" value="1" />
-              <Picker.Item label="Comercial" value="2" />
-              <Picker.Item label="Hipotecario de Vivienda, Vivienda Social o Automotor" value="3" />
-              <Picker.Item label="Tarjetas" value="4" />
-              <Picker.Item label="Otros" value="5" />
-              <Picker.Item label="Asalariado 7x5" value="7" />
-              <Picker.Item label="Línea Licitada" value="8" />
-              <Picker.Item label="Línea no Licitada" value="9" />
-            </Picker>
-          </View>
-        </View>
+        {Platform.OS === 'ios' && 
+        <PickerView
+          ref={(pickerCoverage) => { this.pickerCoverage = pickerCoverage; }}
+          data={this.state.coverages}
+          _handleValue={this.handleCoverage}
+        />
+        }
+        
+        {Platform.OS === 'ios' && 
+        <PickerView
+          ref={(pickerCurrency) => { this.pickerCurrency = pickerCurrency; }}
+          data={this.state.currencies}
+          _handleValue={this.handleCurrency}
+        />
+        }
+        
+        {Platform.OS === 'ios' && 
+        <PickerView
+          ref={(pickerTypeTerm) => { this.pickerTypeTerm = pickerTypeTerm; }}
+          data={this.state.typeTerms}
+          _handleValue={this.handleTypeTerm}
+        />
+        }
+        
+        {Platform.OS === 'ios' && 
+        <PickerView
+          ref={(pickerCreditProduct) => { this.pickerCreditProduct = pickerCreditProduct; }}
+          data={this.state.creditProducts}
+          _handleValue={this.handleCreditProduct}
+        />
+        }
         
       </View>
     )

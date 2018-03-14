@@ -16,6 +16,7 @@ import Notification from './app/components/notifications/Notification';
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
   'Warning: componentWillReceiveProps is deprecated',
+  'Module RCTImageLoader requires',
 ]);
 
 const App = TabNavigator({

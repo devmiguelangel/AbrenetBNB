@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: '#1e272e',
     ...Platform.select({
-      'ios': {
+      ios: {
         paddingTop: 15
       }
     })
@@ -83,7 +83,43 @@ const styles = StyleSheet.create({
     color: '#37474F',
     marginLeft: 10,
     fontFamily: 'Quicksand-Medium',
-  }
+  },
+  formView: {
+    flexDirection: 'row',
+  },
+  formBox: {
+    flex: 1,
+  },
+  formBoxPicker: {
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#CFD8DC',
+  },
+  formPicker: {
+    color: '#37474F',
+  },
+  formGroup: {
+    flexDirection: 'row',
+    marginHorizontal: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '#CFD8DC',
+    paddingHorizontal: 7,
+    ...Platform.select({
+      ios: {
+        paddingVertical: 12,
+      },
+    }),
+  },
+  formGroupIcon: {
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  formText: {
+    flex: 1,
+    color: '#37474F',
+  },
+
 });
 
 export default styles;

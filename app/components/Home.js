@@ -24,7 +24,7 @@ const HomeApp = StackNavigator({
 
 export default class Home extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Inicio',
+    tabBarLabel: 'Productos',
     tabBarIcon: ({tintColor}) => (
       <Icons name="ios-home" size={20} color={tintColor} />
     )
