@@ -10,7 +10,64 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  header: {
+  // Logo
+  logoBox: {
+    flexDirection: 'row',
+    marginTop: 200,
+    width: 250,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoText: {
+    marginRight: 10,
+    fontSize: 30,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#EDF6F7',
+  },
+  logoImage: {
+    width: 100,
+    height: 90,
+  },
+  // Login
+  loginBox: {
+    width: 260,
+    height: 55,
+    marginTop: 20,
+  },
+  loginLabel: {
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    color: '#37474F',
+  },
+  loginInputBox: {
+    flexDirection: 'row',
+    height: 35,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F5FCFF',
+  },
+  loginInputText: {
+    flex: 1,
+    color: '#37474F',
+  },
+  signInButton: {
+    width: 250,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#60A3BC',
+  },
+  signInText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#F5FCFF',
+  },
+  loginSignUpText: {
+    fontSize: 12,
+    fontFamily: 'Oxygen-Regular',
+    color: '#576574',
+  },
+  /* header: {
     minHeight: 100,
     justifyContent: 'center',
     alignSelf: 'stretch',
@@ -28,17 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
   },
-  headerText: {
-    marginRight: 10,
-    // color: '#00a8ff',
-    color: '#dff9fb',
-    fontSize: 35,
-    fontFamily: 'Quicksand-Medium',
-  },
-  headerLogo: {
-    width: 85,
-    height: 76
-  },
+
   productList: {
     flex: 1,
     alignSelf: 'stretch',
@@ -118,8 +165,7 @@ const styles = StyleSheet.create({
   formText: {
     flex: 1,
     color: '#37474F',
-  },
-
+  }, */
 });
 
 export default styles;

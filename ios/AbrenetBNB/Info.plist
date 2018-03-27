@@ -53,10 +53,6 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Quicksand-Bold.ttf</string>
-		<string>Quicksand-Light.ttf</string>
-		<string>Quicksand-Medium.ttf</string>
-		<string>Quicksand-Regular.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
@@ -68,6 +64,15 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Oxygen-Bold.ttf</string>
+		<string>Oxygen-Light.ttf</string>
+		<string>Oxygen-Regular.ttf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-ExtraBold.ttf</string>
+		<string>Poppins-Light.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

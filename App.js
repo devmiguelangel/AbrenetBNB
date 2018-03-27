@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import {
   Platform,
-  StyleSheet,
-  Text,
-  View,
   YellowBox
-} from 'react-native';
-import { TabNavigator } from 'react-navigation';
+} from "react-native";
 
-import Home from './app/components/Home';
-import User from './app/components/user/User';
-import Report from './app/components/reports/Report';
-import Notification from './app/components/notifications/Notification';
+import LoginView from './app/components/user/LoginView';
+
+// import { TabNavigator } from 'react-navigation';
+
+// import Home from './app/components/Home';
+// import User from './app/components/user/User';
+// import Report from './app/components/reports/Report';
+// import Notification from './app/components/notifications/Notification';
 
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
@@ -19,7 +19,7 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader requires',
 ]);
 
-const App = TabNavigator({
+/* const App = TabNavigator({
   Home: { screen: Home },
   Report: { screen: Report },
   Notification: { screen: Notification },
@@ -47,6 +47,12 @@ const App = TabNavigator({
       backgroundColor: '#f7f8ff',
     }
   }
-});
+}); */
 
-export default App;
+export default class App extends Component {
+  render() {
+    return (
+      <LoginView />
+    );
+  }
+}

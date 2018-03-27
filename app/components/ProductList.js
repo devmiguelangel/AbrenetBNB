@@ -8,7 +8,6 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { styles, images } from '@assets';
@@ -18,7 +17,7 @@ export default class ProductList extends Component {
     header: null,
   }
 
-  hanldleProductDe () {
+  handleProductDe () {
     this.props.navigation.navigate('ProductDe');
   }
 
@@ -39,7 +38,7 @@ export default class ProductList extends Component {
 
         <ScrollView style={styles.productList}>
           <View style={styles.productRow}>
-            <TouchableOpacity style={styles.productTouch} activeOpacity={0.5} onPress={() => this.hanldleProductDe()}>
+            <TouchableOpacity style={styles.productTouch} activeOpacity={0.5} onPress={() => this.handleProductDe()}>
               <View style={[styles.productBox, { backgroundColor: '#81C784' }]}>
                 <View style={styles.productIcon}>
                   <Icon name="home" size={60} color="white" />
