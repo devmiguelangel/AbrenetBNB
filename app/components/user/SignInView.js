@@ -12,15 +12,31 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
+import { firebaseAuth } from './../firebase';
 import { styles, images } from "@assets";
 
-export default class Login extends Component {
+export default class SignInView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      signedIn: false,
       email: '',
       password: '',
     }
+  }
+
+  handleSignIn = () => {
+    const { email, password } = this.state;
+
+    firebaseAuth.signInWithEmailAndPassword(email, password).then((data) => {
+      console.warn(data);
+    }).catch((error) => {
+      console.warn(error);
+    });
+  }
+
+  handleSignUp = () => {
+    console.warn('Sign Up');
   }
 
   render() {
@@ -30,8 +46,8 @@ export default class Login extends Component {
           backgroundColor="#1e272e"
           barStyle="light-content"
         />
-        
-        <View style={[styles.logoBox, {marginBottom: 30}]}>
+
+        <View style={[styles.logoBox, { marginBottom: 30 }]}>
           <Text style={styles.logoText}>SEGUROS</Text>
           <Image source={images.logo} style={styles.logoImage} />
         </View>
@@ -41,7 +57,7 @@ export default class Login extends Component {
           <View style={styles.loginInputBox}>
             <TextInput
               style={styles.loginInputText}
-              onChangeText={(email) => this.setState({email})}
+              onChangeText={(email) => this.setState({ email })}
               value={this.state.email}
               keyboardType="email-address"
               underlineColorAndroid="transparent"
@@ -50,7 +66,7 @@ export default class Login extends Component {
             <Icon name="account-circle" size={32} color="#37474F" />
           </View>
         </View>
-        
+
         <View style={styles.loginBox}>
           <Text style={styles.loginLabel}>CONTRASEÑA</Text>
           <View style={styles.loginInputBox}>
@@ -67,7 +83,8 @@ export default class Login extends Component {
         </View>
 
         <TouchableOpacity
-          style={{marginTop: 25}}
+          onPress={() => this.handleSignIn()}
+          style={{ marginTop: 25 }}
           activeOpacity={0.5}>
           <View style={styles.signInButton}>
             <Text style={styles.signInText}>Ingresar</Text>
@@ -75,13 +92,13 @@ export default class Login extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => this.handleSignUp()}
           style={{ marginTop: 20 }}
           activeOpacity={0.7}>
           <Text style={styles.loginSignUpText}>
             REGÍSTRATE PARA OBTENER UNA CUENTA
-          </Text>
+            </Text>
         </TouchableOpacity>
-
       </ImageBackground>
     );
   }

@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import {
   Platform,
-  YellowBox
+  YellowBox,
+  View,
+  ActivityIndicator,
 } from "react-native";
+import { StackNavigator } from 'react-navigation';
 
-import LoginView from './app/components/user/LoginView';
+import SignInView from './app/components/user/SignInView';
+import AppStack from './app/components/AppStack';
 
-// import { TabNavigator } from 'react-navigation';
-
-// import Home from './app/components/Home';
-// import User from './app/components/user/User';
-// import Report from './app/components/reports/Report';
-// import Notification from './app/components/notifications/Notification';
+import { firebaseAuth } from './app/components/firebase';
 
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
@@ -19,40 +18,40 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader requires',
 ]);
 
-/* const App = TabNavigator({
-  Home: { screen: Home },
-  Report: { screen: Report },
-  Notification: { screen: Notification },
-  User: { screen: User },
-}, {
-  tabBarPosition: 'bottom',
-  navigationOptions: {
-    title: 'Seguros BNB',
-  },
-  tabBarOptions: {
-    activeTintColor: '#4CAF50',
-    inactiveTintColor: '#576574',
-    upperCaseLabel: false,
-    showIcon: true,
-    labelStyle: {
-      fontSize: 10,
-      ...Platform.select({
-        'ios': {
-          paddingBottom: 5,
-        }
-      }),
-    },
-    pressOpacity: 0.3,
-    style: {
-      backgroundColor: '#f7f8ff',
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signedIn: false,
+      loading: true,
     }
   }
-}); */
 
-export default class App extends Component {
+  componentDidMount = () => {
+    firebaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ signedIn: true });
+      }
+
+      this.setState({ loading: false });
+    });
+  }
+
   render() {
     return (
-      <LoginView />
+      <View style={{flex: 1}}>
+        {
+          this.state.loading ? (
+            <ActivityIndicator size="small" color="#607D8B" style={{ flex: 1, backgroundColor: '#E0F2F1' }} />
+          ) : (
+            ! this.state.signedIn ? (
+              <SignInView />
+            ) : (
+              <AppStack />
+            )
+          )
+        }
+      </View>
     );
   }
 }

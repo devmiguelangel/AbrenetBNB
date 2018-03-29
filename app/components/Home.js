@@ -6,12 +6,12 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Icons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import ProductList from './ProductList';
 import ProductDe from './products/de/ProductDe';
 
-const HomeApp = StackNavigator({
+const HomeStack = StackNavigator({
   ProductList: {
     screen: ProductList
   },
@@ -26,13 +26,13 @@ export default class Home extends Component {
   static navigationOptions = {
     tabBarLabel: 'Productos',
     tabBarIcon: ({tintColor}) => (
-      <Icons name="ios-home" size={20} color={tintColor} />
+      <Icon name="ios-home" size={20} color={tintColor} />
     )
   }
 
   render() {
     return (
-      <HomeApp />
+      <HomeStack />
     );
   }
 }
