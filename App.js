@@ -7,10 +7,10 @@ import {
 } from "react-native";
 import { StackNavigator } from 'react-navigation';
 
-import SignInView from './app/components/user/SignInView';
-import AppStack from './app/components/AppStack';
-
 import { firebaseAuth } from './app/components/firebase';
+
+import AuthStack from './app/components/user/AuthStack';
+import AppStack from './app/components/AppStack';
 
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
@@ -31,6 +31,12 @@ export default class App extends Component {
     firebaseAuth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ signedIn: true });
+
+        /* firebaseAuth.signOut().then(() => {
+          // Sign-out successful.
+        }).catch((error) => {
+          // An error happened.
+        }); */
       }
 
       this.setState({ loading: false });
@@ -45,7 +51,7 @@ export default class App extends Component {
             <ActivityIndicator size="small" color="#607D8B" style={{ flex: 1, backgroundColor: '#E0F2F1' }} />
           ) : (
             ! this.state.signedIn ? (
-              <SignInView />
+              <AuthStack />
             ) : (
               <AppStack />
             )

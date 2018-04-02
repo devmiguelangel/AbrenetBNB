@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   // Logo
   logoBox: {
     flexDirection: 'row',
-    marginTop: 200,
     width: 250,
     height: 100,
     justifyContent: 'center',
@@ -50,6 +49,22 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#37474F',
   },
+  loginSignUpBox: {
+    width: 270,
+    height: 55,
+    marginTop: 20,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(77,182,172, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,105,92, 0.1)',
+    alignItems: 'center',
+  },
+  loginSignUpInputText: {
+    flex: 1,
+    color: '#546E7A',
+    paddingHorizontal: 10,
+    fontFamily: 'Poppins-Medium',
+  },
   signInButton: {
     width: 250,
     height: 50,
@@ -59,25 +74,32 @@ const styles = StyleSheet.create({
   },
   signInText: {
     fontSize: 16,
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins-Medium',
     color: '#F5FCFF',
   },
   loginSignUpText: {
     fontSize: 12,
     fontFamily: 'Oxygen-Regular',
-    color: '#576574',
+    color: '#78909C',
   },
-  /* header: {
-    minHeight: 100,
-    justifyContent: 'center',
+  signUpContainer: {
+    flex: 1,
+    alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: '#1e272e',
+  },
+  header: {
+    minHeight: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    backgroundColor: '#37474F',
     ...Platform.select({
       ios: {
         paddingTop: 15
       }
     })
   },
+  /* 
   headerBox: {
     alignSelf: 'stretch',
     flexDirection: 'row',
