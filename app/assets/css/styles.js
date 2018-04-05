@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     color: '#37474F',
   },
   loginSignUpBox: {
-    width: 270,
+    width: '80%',
     height: 55,
     marginTop: 20,
     flexDirection: 'row',
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: '#546E7A',
     paddingHorizontal: 10,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
   },
   signInButton: {
     width: 250,
