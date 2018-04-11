@@ -4,16 +4,16 @@ import {
 } from "react-native";
 import { TabNavigator } from 'react-navigation';
 
-import Home from './Home';
-import User from './user/User';
-import Report from './reports/Report';
-import Notification from './notifications/Notification';
+import HomeStack from './products/HomeStack';
+import UserStack from './user/UserStack';
+import ReportStack from './reports/ReportStack';
+import NotificationStack from './notifications/NotificationStack';
 
 const App = TabNavigator({
-  Home: { screen: Home },
-  Report: { screen: Report },
-  Notification: { screen: Notification },
-  User: { screen: User },
+  HomeStack: { screen: HomeStack },
+  ReportStack: { screen: ReportStack },
+  NotificationStack: { screen: NotificationStack },
+  UserStack: { screen: UserStack },
 }, {
   tabBarPosition: 'bottom',
   navigationOptions: {
@@ -24,18 +24,26 @@ const App = TabNavigator({
     inactiveTintColor: '#576574',
     upperCaseLabel: false,
     showIcon: true,
+    indicatorStyle: false,
     labelStyle: {
+      marginTop: 0,
       fontSize: 10,
       ...Platform.select({
         'ios': {
           paddingBottom: 5,
-        }
+        },
       }),
     },
     pressOpacity: 0.3,
     style: {
-      backgroundColor: '#f7f8ff',
-    }
+      backgroundColor: '#ffffff',
+      borderTopWidth: 0,
+    },
+    tabStyle: {
+      padding: 0,
+      paddingTop: 2,
+      paddingBottom: 0,
+    },
   }
 });
 

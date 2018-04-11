@@ -28,65 +28,6 @@ const styles = StyleSheet.create({
     width: 100,
     height: 90,
   },
-  // Login
-  loginBox: {
-    width: 260,
-    height: 55,
-    marginTop: 20,
-  },
-  loginLabel: {
-    fontSize: 12,
-    fontFamily: 'Poppins-Medium',
-    color: '#37474F',
-  },
-  loginInputBox: {
-    flexDirection: 'row',
-    height: 35,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F5FCFF',
-  },
-  loginInputText: {
-    flex: 1,
-    color: '#37474F',
-  },
-  loginSignUpBox: {
-    width: '80%',
-    height: 55,
-    marginTop: 20,
-    flexDirection: 'row',
-    backgroundColor: 'rgba(77,182,172, 0.1)',
-    borderWidth: 1,
-    borderColor: 'rgba(0,105,92, 0.1)',
-    alignItems: 'center',
-  },
-  loginSignUpInputText: {
-    flex: 1,
-    color: '#546E7A',
-    paddingHorizontal: 10,
-    fontFamily: 'Poppins-Regular',
-  },
-  signInButton: {
-    width: 250,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#60A3BC',
-  },
-  signInText: {
-    fontSize: 16,
-    fontFamily: 'Poppins-Medium',
-    color: '#F5FCFF',
-  },
-  loginSignUpText: {
-    fontSize: 12,
-    fontFamily: 'Oxygen-Regular',
-    color: '#78909C',
-  },
-  signUpContainer: {
-    flex: 1,
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
   header: {
     minHeight: 150,
     justifyContent: 'center',
@@ -95,49 +36,97 @@ const styles = StyleSheet.create({
     backgroundColor: '#37474F',
     ...Platform.select({
       ios: {
-        paddingTop: 15
-      }
+        paddingTop: 15,
+      },
+      android: {
+        marginTop: -15,
+      },
     })
   },
-  /* 
-  headerBox: {
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-
+  // Home
   productList: {
     flex: 1,
     alignSelf: 'stretch',
-    marginBottom: 10,
+    marginBottom: 20,
     // backgroundColor: 'rgba(20, 149, 95, 0.3)', // #14955F
     // backgroundColor: 'rgba(26, 170, 142, 0.7)', // #1AAA8E
   },
   productRow: {
-    alignSelf: 'stretch',
-    height: 165,
+    flex: 1,
+    paddingHorizontal: 10,
+    marginTop: 20,
+    height: 'auto',
     flexDirection: 'row',
-    // paddingHorizontal: 10,
-    alignItems: 'center',
   },
   productTouch: {
     flex: 1,
+    alignItems: 'center',
   },
   productBox: {
     flex: 1,
-    height: 165,
-    padding: 12,
+    width: 160, 
+    height: 150,
+    padding: 5,
     flexDirection: 'column',
   },
   productIcon: {
     flex: 1,
   },
   productTitle: {
-    fontSize: 15,
+    textAlign: 'right',
+    fontSize: 13,
     color: 'white',
-    fontFamily: 'Quicksand-Bold',
+    fontFamily: 'Poppins-SemiBold',
+  },
+
+  // Modal
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(38,50,56 ,0.7)',
+    padding: 30,
+    justifyContent: 'center',
+  },
+  modalBox: {
+    backgroundColor: '#ECEFF1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  modalTitleBox: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    paddingVertical: 5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#42A5F5',
+  },
+  modalTitleText: {
+    fontSize: 20,
+    fontFamily: 'Poppins-Medium',
+    color: '#546E7A',
+  },
+  modalCloseBox: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    paddingVertical: 5,
+    borderTopWidth: 0.5,
+    borderTopColor: '#42A5F5',
+  },
+  modalCloseText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Medium',
+    color: '#ef5350',
+  },
+  modalActionTouch: {
+    alignSelf: 'stretch',
+  },
+  modalActionBox: {
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  modalActionText: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Regular',
+    color: '#1E88E5',
   },
 
   // Forms
@@ -151,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: '#37474F',
     marginLeft: 10,
-    fontFamily: 'Quicksand-Medium',
+    fontFamily: 'Poppins-Medium',
   },
   formView: {
     flexDirection: 'row',
@@ -187,7 +176,7 @@ const styles = StyleSheet.create({
   formText: {
     flex: 1,
     color: '#37474F',
-  }, */
+  },
 });
 
 export default styles;

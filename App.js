@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { StackNavigator } from 'react-navigation';
 
-import { firebaseAuth } from './app/components/firebase';
+import { firebaseAuth } from './app/utils/firebase';
 
 import AuthStack from './app/components/user/AuthStack';
 import AppStack from './app/components/AppStack';

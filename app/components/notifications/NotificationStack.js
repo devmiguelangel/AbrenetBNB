@@ -5,18 +5,18 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class User extends Component {
+export default class NotificationStack extends Component {
   static navigationOptions = {
-    tabBarLabel: 'Cuenta',
+    tabBarLabel: 'Notificaciones',
     tabBarIcon: ({tintColor}) => (
-      <Icon name="ios-person" size={20} color={tintColor} />
+      <Icon name="ios-notifications" size={25} color={tintColor} />
     )
   }
 
   render() {
     return (
       <View>
-        <Text>User</Text>
+        <Text>Notification</Text>
       </View>
     )
   }

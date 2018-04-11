@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import _ from 'underscore';
 
-import PickerView from './../../PickerView';
+import PickerView from './../../../lib/PickerView';
 
 import { styles } from '@assets';
 
