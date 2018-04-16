@@ -1,14 +1,16 @@
 import * as firebase from "firebase";
+import 'firebase/firestore';
 
 const config = {
-  apiKey: "AIzaSyBM_oYcj7N9xanchA96Zc-kiKCN1hrgBHQ",
-  authDomain: "abrenetbnb.firebaseapp.com",
-  databaseURL: "https://abrenetbnb.firebaseio.com",
-  projectId: "abrenetbnb",
+  apiKey: "AIzaSyB5d97T2oaqzQVL2YIlEtK9cCNfCLCoB9g",
+  authDomain: "seguros-bnb.firebaseapp.com",
+  databaseURL: "https://seguros-bnb.firebaseio.com",
+  projectId: "seguros-bnb",
   storageBucket: "",
-  messagingSenderId: "350522286544"
+  messagingSenderId: "538941338608"
 };
 
 firebase.initializeApp(config);
 
 export const firebaseAuth = firebase.auth();
+export const db = firebase.firestore();

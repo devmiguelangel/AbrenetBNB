@@ -9,15 +9,19 @@ import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeListView from './HomeListView';
-import ProductDe from './de/ProductDe';
+import DeCreateView from './de/CreateView';
+import DeClientView from './de/ClientView';
 
 const Home = StackNavigator(
   {
     HomeListView: {
       screen: HomeListView
     },
-    ProductDe: {
-      screen: ProductDe
+    DeCreateView: {
+      screen: DeCreateView
+    },
+    DeClientView: {
+      screen: DeClientView
     },
   },
   {

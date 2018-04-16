@@ -17,7 +17,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 import AppStack from './../AppStack';
 
-import { firebaseAuth } from './../../utils/firebase';
+import { firebaseAuth } from '@utils';
 import { styles as _styles, images } from '@assets';
 
 export default class SignInView extends Component {

@@ -13,7 +13,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { firebaseAuth } from './../../utils/firebase';
+import { firebaseAuth } from '@utils';
 import { styles as _styles, images } from "@assets";
 
 import AppStack from './../AppStack';

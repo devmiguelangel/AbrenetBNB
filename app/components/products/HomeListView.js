@@ -68,7 +68,7 @@ export default class HomeListView extends Component {
     if (typeProduct === 'product') {
       switch (index) {
         case 1:
-          this.props.navigation.navigate('ProductDe');
+          this.props.navigation.navigate('DeCreateView');
           break;
       }
     }
@@ -81,7 +81,7 @@ export default class HomeListView extends Component {
       <View style={styles.container}>
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          title={'Emitisión de una póliza de...'}
+          title={'Emisión de una póliza de...'}
           options={options}
           cancelButtonIndex={0}
           onPress={(index) => this.handleProductActions(index) }

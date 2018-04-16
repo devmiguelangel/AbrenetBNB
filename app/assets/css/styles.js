@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
 
   // Modal
-  modalContainer: {
+  /* modalContainer: {
     flex: 1,
     backgroundColor: 'rgba(38,50,56 ,0.7)',
     padding: 30,
@@ -127,56 +127,77 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
     color: '#1E88E5',
-  },
+  }, */
 
   // Forms
-  formTitle: {
+  formTitleBox: {
     flexDirection: 'row',
     alignSelf: 'stretch',
-    padding: 8,
-    backgroundColor: '#e8eff2',
-  },
-  formTitleText: {
-    fontSize: 11,
-    color: '#37474F',
-    marginLeft: 10,
-    fontFamily: 'Poppins-Medium',
-  },
-  formView: {
-    flexDirection: 'row',
-  },
-  formBox: {
-    flex: 1,
-  },
-  formBoxPicker: {
-    flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: '#CFD8DC',
-  },
-  formPicker: {
-    color: '#37474F',
-  },
-  formGroup: {
-    flexDirection: 'row',
-    marginHorizontal: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#CFD8DC',
-    paddingHorizontal: 7,
-    ...Platform.select({
-      ios: {
-        paddingVertical: 12,
-      },
-    }),
-  },
-  formGroupIcon: {
-    width: 30,
+    height: 44,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  formText: {
-    flex: 1,
+  formTitleText: {
+    fontSize: 20,
     color: '#37474F',
+    fontFamily: 'Poppins-Regular',
   },
+  formContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  formInputGroup: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    marginTop: 5,
+  },
+  formInputBox: {
+    flex: 1,
+    height: 45,
+    flexDirection: 'row',
+    marginHorizontal: 3,
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#CECED2',
+  },
+  formInputText: {
+    flex: 1,
+    fontFamily: 'Oxygen-Regular',
+    fontSize: 14,
+    paddingHorizontal: 10,
+    color: 'black',
+  },
+  formPicker: {
+    flex: 1,
+  },
+  formButtonTouch: {
+    width: '95%',
+    height: 45,
+    marginVertical: 10,
+    alignSelf: 'center',
+  },
+  formButtonBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'rgba(0, 118, 255, 0.7)',
+    // backgroundColor: 'rgba(129, 199, 132, 1)',
+    // backgroundColor: 'rgba(76, 217, 100, 0.7)',
+    backgroundColor: 'rgba(0, 122, 255, 0.7)',
+    ...Platform.select({
+      ios: {
+        borderRadius: 8,
+      }
+    }),
+  },
+  formButtonText: {
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'Poppins-Regular'
+  }
+
 });
 
 export default styles;

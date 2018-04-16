@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { StackNavigator } from 'react-navigation';
 
-import { firebaseAuth } from './app/utils/firebase';
+import { firebaseAuth } from '@utils';
 
 import AuthStack from './app/components/user/AuthStack';
 import AppStack from './app/components/AppStack';
@@ -16,6 +16,7 @@ YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
   'Warning: componentWillReceiveProps is deprecated',
   'Module RCTImageLoader requires',
+  'Warning: isMounted',
 ]);
 
 export default class App extends Component {
