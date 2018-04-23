@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'stretch',
     marginTop: 5,
+    justifyContent: 'center',
   },
   formInputBox: {
     flex: 1,
@@ -161,6 +162,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#CECED2',
+  },
+  formInputBoxMd: {
+    flex: 0,
+    width: '70%',
   },
   formInputText: {
     flex: 1,
@@ -182,10 +187,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'rgba(0, 118, 255, 0.7)',
-    // backgroundColor: 'rgba(129, 199, 132, 1)',
-    // backgroundColor: 'rgba(76, 217, 100, 0.7)',
-    backgroundColor: 'rgba(0, 122, 255, 0.7)',
+    backgroundColor: 'rgba(76, 217, 100, 0.7)',
+    // backgroundColor: 'rgba(0, 122, 255, 0.7)',
     ...Platform.select({
       ios: {
         borderRadius: 8,
@@ -195,7 +198,7 @@ const styles = StyleSheet.create({
   formButtonText: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Poppins-Regular'
+    fontFamily: 'Poppins-Medium'
   }
 
 });

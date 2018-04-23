@@ -27,6 +27,22 @@ const Home = StackNavigator(
   {
     initialRouteName: 'HomeListView',
     // headerMode: 'none',
+    navigationOptions: {
+      gesturesEnabled: false,
+      headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? '#81C784' : '#FFFFFF',
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#8e8e93',
+      },
+      headerTitleStyle: {
+        fontWeight: '500',
+        ...Platform.select({
+          android: {
+            color: 'white',
+          }
+        })
+      },
+    }
   }
 );
 

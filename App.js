@@ -17,6 +17,7 @@ YellowBox.ignoreWarnings([
   'Warning: componentWillReceiveProps is deprecated',
   'Module RCTImageLoader requires',
   'Warning: isMounted',
+  'Setting a timer',
 ]);
 
 export default class App extends Component {

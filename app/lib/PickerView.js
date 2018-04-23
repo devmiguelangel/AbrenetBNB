@@ -20,16 +20,30 @@ export default class PickerView extends Component {
     super(props);
     this.state = {
       modal: false,
+      field: '',
+      value: '',
+      data: [],
+      lists: '',
     }
   }
 
-  _handleOpen = () => {
-    this.setState({modal: true});
+  _handleOpen = (field, value, data) => {
+    this.setState({ modal: true, field, value, data }, () => {
+      Animated.timing(offSet, {
+        duration: 300,
+        toValue: 0
+      }).start();
+    });
+  }
 
-    Animated.timing(offSet, {
-      duration: 300,
-      toValue: 0
-    }).start();
+  _handleOk = (itemValue) => {
+    if (itemValue) {
+      this.setState({ value: itemValue }, () => {
+        const { field, value, data } = this.state;
+
+        this.props.handleValue(field, value, data);
+      });
+    }
   }
 
   _handleClose = () => {
@@ -40,7 +54,7 @@ export default class PickerView extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { value, data } = this.state;
     
     return (
       <Modal
@@ -52,13 +66,13 @@ export default class PickerView extends Component {
           <Animated.View style={[{ transform: [{ translateY: offSet }] }, styles.container]}>
             <View style={styles.closeButtonContainer}>
               <TouchableHighlight onPress={this._handleClose} underlayColor="transparent" style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Ok</Text>
+                <Text style={styles.closeButtonText}>OK</Text>
               </TouchableHighlight>
             </View>
             <Picker
               style={styles.picker}
-              selectedValue={this.props.dataValue}
-              onValueChange={(itemValue) => { this.props.handleChangeData(itemValue) }}>
+              selectedValue={value}
+              onValueChange={(itemValue) => this._handleOk(itemValue)}>
               <Picker.Item
                 value=''
                 label='Seleccione...'

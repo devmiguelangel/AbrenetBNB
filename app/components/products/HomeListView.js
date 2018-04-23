@@ -55,11 +55,9 @@ export default class HomeListView extends Component {
       });
     }
 
-    this.setState({ options: options, typeProduct: typeProduct, });
-    
-    setTimeout(() => {
+    this.setState({ options: options, typeProduct: typeProduct, }, () => {
       this.ActionSheet.show();
-    }, 50);
+    });
   }
 
   handleProductActions = (index) => {
@@ -81,7 +79,7 @@ export default class HomeListView extends Component {
       <View style={styles.container}>
         <ActionSheet
           ref={o => this.ActionSheet = o}
-          title={'Emisión de una póliza de...'}
+          title={'Emitir una póliza de...'}
           options={options}
           cancelButtonIndex={0}
           onPress={(index) => this.handleProductActions(index) }
@@ -102,7 +100,8 @@ export default class HomeListView extends Component {
         <ScrollView
           style={styles.productList}
           showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.productRow}>
             <TouchableOpacity
               style={styles.productTouch}
