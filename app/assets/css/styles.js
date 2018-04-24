@@ -78,14 +78,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Poppins-SemiBold',
   },
-
   // Modal
-  /* modalContainer: {
+  modalContainer: {
     flex: 1,
     backgroundColor: 'rgba(38,50,56 ,0.7)',
-    padding: 30,
     justifyContent: 'center',
+    alignItems: 'center',
   },
+  
+  /* 
   modalBox: {
     backgroundColor: '#ECEFF1',
     justifyContent: 'center',
@@ -139,6 +140,18 @@ const styles = StyleSheet.create({
   },
   formTitleText: {
     fontSize: 20,
+    color: '#37474F',
+    fontFamily: 'Poppins-Regular',
+  },
+  formSubTitleBox: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  formSubTitleText: {
+    fontSize: 16,
     color: '#37474F',
     fontFamily: 'Poppins-Regular',
   },
@@ -199,7 +212,26 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontFamily: 'Poppins-Medium'
-  }
+  },
+  questionBox: {
+    height: 'auto',
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#B2DFDB',
+  },
+  questionNumber: {
+    fontFamily: 'Oxygen-Bold',
+    fontSize: 18,
+  },
+  questionText: {
+    flex: 1,
+    fontFamily: 'Oxygen-Light',
+    fontSize: 12,
+    padding: 5,
+  },
 
 });
 

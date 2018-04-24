@@ -87,7 +87,7 @@ export default class DatePickerView extends Component {
                 >
                   <Text style={styles.actionText}>
                     Cancelar
-                </Text>
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.actionButton}
@@ -96,7 +96,7 @@ export default class DatePickerView extends Component {
                 >
                   <Text style={styles.actionText}>
                     OK
-                </Text>
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>

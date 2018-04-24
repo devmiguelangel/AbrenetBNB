@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {
   Platform,
   Text,
+  TouchableOpacity,
   View,
-  TouchableOpacity
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';

@@ -16,6 +16,7 @@ import _ from 'underscore';
 import moment from 'moment';
 import numeral from 'numeral';
 
+import QuestionView from './QuestionView';
 import {
   DatePickerView,
   HeaderLeftView,
@@ -31,11 +32,7 @@ export default class ClientView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      params: this.props.navigation.state,
-      
       data: [],
-      dataValue: '',
-      currentPicker: '',
       loading: false,
       search: false,
 
@@ -192,6 +189,7 @@ export default class ClientView extends Component {
   }
 
   handleStore = () => {
+    //this._questions._handleOpen(null);
     const {
       search,
 
@@ -282,9 +280,8 @@ export default class ClientView extends Component {
           updatedAt: date.toDate(),
         })
         .then((docRef) => {
-          db.collection("de_details")
+          db.collection(`de_headers/${headerRef.id}/details`)
             .add({
-              header: headerRef,
               client: docRef,
               percentageCredit: 100,
               companyApproval: 'FC',
@@ -301,9 +298,9 @@ export default class ClientView extends Component {
               updatedAt: date.toDate(),
             })
             .then((docRef) => {
-              this.setState({ loading: false });
+              this.setState({ loading: false, search: false });
 
-              this.props.navigation.navigate('HomeListView');
+              this._questions._handleOpen(headerRef, docRef);
             })
             .catch((error) => {
               this.setState({ loading: false });
@@ -326,6 +323,10 @@ export default class ClientView extends Component {
 
     return (
       <View style={styles.container}>
+        <QuestionView
+          ref={(_questions) => { this._questions = _questions; }}
+          navigation={this.props.navigation}
+        />
         {
           loading && (
             <LoadingView />
