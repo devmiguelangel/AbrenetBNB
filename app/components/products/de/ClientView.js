@@ -32,52 +32,11 @@ export default class ClientView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       loading: false,
       search: false,
+      details : [],
 
-      firstName: '',
-      firstNameText: 'Nombres',
-      lastName: '',
-      lastNameText: 'Ap. Paterno',
-      motherLastName: '',
-      motherLastNameText: 'Ap. Materno',
-      marriedName: '',
-      marriedNameText: 'Ap. de Casada',
-      dni: '',
-      dniText: 'Documento de Identidad',
-      complement: '',
-      complementText: 'Complemento',
-      extension: '',
-      extensionText: 'Extensión',
-      extensions: [],
-      birthdate: null,
-      birthdateText: 'Fecha de Nacimiento',
-      locality: '',
-      localityText: 'Localidad',
-      homeAddress: '',
-      homeAddressText: 'Dirección',
-      businessAddress: '',
-      businessAddressText: 'Dirección laboral',
-      workplace: '',
-      workplaceText: 'Lugar de trabajo',
-      activity: '',
-      activityText: 'Ocupación CAEDEC',
-      activities: [],
-      occupationDescription: '',
-      occupationDescriptionText: 'Descripcción de Actividad',
-      phoneNumberHome: '',
-      phoneNumberHomeText: 'Teléfono 1',
-      phoneNumberOffice: '',
-      phoneNumberOfficeText: 'Teléfono de oficina',
-      phoneNumberMobile: '',
-      phoneNumberMobileText: 'Teléfono 2',
-      email: '',
-      emailText: 'Correo electrónico',
-      weight: '',
-      weightText: 'Peso',
-      height: '',
-      heightText: 'Estatura',
+      formData: this.initForm(),
     }
   }
 
@@ -129,10 +88,81 @@ export default class ClientView extends Component {
       { 'value': 4, 'label': 'Actividad 3', },
     ];
 
-    this.setState({
-      extensions,
-      activities,
-    });
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        extensions,
+        activities,
+      }
+    }));
+
+    const { params } = this.props.navigation.state;
+    const { headerRef } = params;
+
+    db.collection("de_headers").doc(headerRef.id).collection("details")
+      .where("amount", ">=", 0)
+      .onSnapshot((querySnapshot) => {
+        let details = [];
+
+        querySnapshot.forEach((doc) => {
+          let detail = doc.data();
+
+          detail.clientRef.get()
+            .then(d => {
+              detail['client'] = d.data();
+              details.push(detail);
+
+              this.setState({ details });
+            });
+        });
+      });
+  }
+
+  initForm = () => {
+    return {
+      firstName: '',
+      firstNameText: 'Nombres',
+      lastName: '',
+      lastNameText: 'Ap. Paterno',
+      motherLastName: '',
+      motherLastNameText: 'Ap. Materno',
+      marriedName: '',
+      marriedNameText: 'Ap. de Casada',
+      dni: '',
+      dniText: 'Documento de Identidad',
+      complement: '',
+      complementText: 'Complemento',
+      extension: '',
+      extensionText: 'Extensión',
+      extensions: [],
+      birthdate: null,
+      birthdateText: 'Fecha de Nacimiento',
+      locality: '',
+      localityText: 'Localidad',
+      homeAddress: '',
+      homeAddressText: 'Dirección',
+      businessAddress: '',
+      businessAddressText: 'Dirección laboral',
+      workplace: '',
+      workplaceText: 'Lugar de trabajo',
+      activity: '',
+      activityText: 'Ocupación CAEDEC',
+      activities: [],
+      occupationDescription: '',
+      occupationDescriptionText: 'Descripcción de Actividad',
+      phoneNumberHome: '',
+      phoneNumberHomeText: 'Teléfono 1',
+      phoneNumberOffice: '',
+      phoneNumberOfficeText: 'Teléfono de oficina',
+      phoneNumberMobile: '',
+      phoneNumberMobileText: 'Teléfono 2',
+      email: '',
+      emailText: 'Correo electrónico',
+      weight: '',
+      weightText: 'Peso',
+      height: '',
+      heightText: 'Estatura',
+    };
   }
   
   handleCancel = () => {
@@ -143,14 +173,21 @@ export default class ClientView extends Component {
     const name = Object.keys(inputField)[0];
     const value = inputField[name];
 
-    this.setState({
-      [name]: value
-    });
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        [name]: value,
+      }
+    }));
+  }
+
+  _focusNextField = (field) => {
+    this.refs[field].focus();
   }
 
   handlePicker = (field, lists) => {
-    const value = this.state[field];
-    const data = this.state[lists];
+    const value = this.state.formData[field];
+    const data = this.state.formData[lists];
 
     this._picker._handleOpen(field, value, data);
   }
@@ -159,17 +196,20 @@ export default class ClientView extends Component {
     const fieldText = field + 'Text';
     const selectedItem = _.first(_.filter(data, (d) => (d.value == value)));
 
-    this.setState({
-      [field]: selectedItem.value,
-      [fieldText]: selectedItem.label,
-    });
+    this.setState(prevState => ({
+      formData : {
+        ...prevState.formData,
+        [field]: selectedItem.value,
+        [fieldText]: selectedItem.label,
+      }
+    }));
   }
 
   handleDatePicker = (field) => {
     let date = moment().toDate();
 
-    if (this.state[field]) {
-      date = this.state[field];
+    if (this.state.formData[field]) {
+      date = this.state.formData[field];
     }
 
     this._datePicker._handleOpen(field, date);
@@ -178,10 +218,13 @@ export default class ClientView extends Component {
   handleDatePickerValue = (field, value) => {
     const fieldText = field + 'Text';
 
-    this.setState({
-      [field]: value,
-      [fieldText]: moment(value).format('DD / MM / YYYY'),
-    });
+    this.setState(prevState => ({
+      formData: {
+        ...prevState.formData,
+        [field]: value,
+        [fieldText]: moment(value).format('DD / MM / YYYY'),
+      }
+    }));
   }
 
   handleSearch = () => {
@@ -190,14 +233,13 @@ export default class ClientView extends Component {
 
   handleStore = () => {
     //this._questions._handleOpen(null);
+    const { search } = this.state;
     const {
-      search,
-
       firstName, lastName, motherLastName, marriedName, dni, complement,
       extension, birthdate, locality, homeAddress, businessAddress,
       workplace, activity, occupationDescription, phoneNumberHome,
       phoneNumberOffice, phoneNumberMobile, email, weight, height,
-    } = this.state;
+    } = this.state.formData;
 
     if (search) {
       const data = {
@@ -282,7 +324,7 @@ export default class ClientView extends Component {
         .then((docRef) => {
           db.collection(`de_headers/${headerRef.id}/details`)
             .add({
-              client: docRef,
+              clientRef: docRef,
               percentageCredit: 100,
               companyApproval: 'FC',
               rate: 0,
@@ -298,7 +340,11 @@ export default class ClientView extends Component {
               updatedAt: date.toDate(),
             })
             .then((docRef) => {
-              this.setState({ loading: false, search: false });
+              this.setState({
+                data: this.initForm(),
+                loading: false, 
+                search: false
+              });
 
               this._questions._handleOpen(headerRef, docRef);
             })
@@ -319,7 +365,7 @@ export default class ClientView extends Component {
   }
 
   render() {
-    const { search, loading } = this.state;
+    const { details, search, loading } = this.state;
 
     return (
       <View style={styles.container}>
@@ -354,24 +400,31 @@ export default class ClientView extends Component {
                       <TextInput
                         style={styles.formInputText}
                         onChangeText={(firstName) => this.handleInputChange({ firstName: firstName })}
-                        value={this.state.firstName}
+                        value={this.state.formData.firstName}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.firstNameText}
+                        placeholder={this.state.formData.firstNameText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('lastName')}
                       />
                     </View>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="lastName"
                         style={styles.formInputText}
                         onChangeText={(lastName) => this.handleInputChange({ lastName: lastName })}
-                        value={this.state.lastName}
+                        value={this.state.formData.lastName}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.lastNameText}
+                        placeholder={this.state.formData.lastNameText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('motherLastName')}
                       />
                     </View>
                   </View>
@@ -379,26 +432,34 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="motherLastName"
                         style={styles.formInputText}
                         onChangeText={(motherLastName) => this.handleInputChange({ motherLastName: motherLastName })}
-                        value={this.state.motherLastName}
+                        value={this.state.formData.motherLastName}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.motherLastNameText}
+                        placeholder={this.state.formData.motherLastNameText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('marriedName')}
                       />
                     </View>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="marriedName"
                         style={styles.formInputText}
                         onChangeText={(marriedName) => this.handleInputChange({ marriedName: marriedName })}
-                        value={this.state.marriedName}
+                        value={this.state.formData.marriedName}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.marriedNameText}
+                        placeholder={this.state.formData.marriedNameText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('dni')}
                       />
                     </View>
                   </View>
@@ -406,13 +467,17 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={[styles.formInputBox, styles.formInputBoxMd]}>
                       <TextInput
+                        ref="dni"
                         style={styles.formInputText}
                         onChangeText={(dni) => this.handleInputChange({ dni: dni })}
-                        value={this.state.dni}
+                        value={this.state.formData.dni}
                         keyboardType="numeric"
-                        placeholder={this.state.dniText}
+                        placeholder={this.state.formData.dniText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('complement')}
                       />
                     </View>
                   </View>
@@ -420,12 +485,13 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="complement"
                         style={styles.formInputText}
                         onChangeText={(complement) => this.handleInputChange({ complement: complement })}
-                        value={this.state.complement}
+                        value={this.state.formData.complement}
                         keyboardType="default"
                         autoCapitalize="none"
-                        placeholder={this.state.complementText}
+                        placeholder={this.state.formData.complementText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
                       />
@@ -438,7 +504,7 @@ export default class ClientView extends Component {
                           onPress={() => this.handlePicker('extension', 'extensions')}
                         >
                           <Text style={styles.formInputText}>
-                            {this.state.extensionText}
+                            {this.state.formData.extensionText}
                           </Text>
                           <Icon name="keyboard-arrow-down" size={30} color="#37474F" />
                         </TouchableOpacity>
@@ -446,11 +512,11 @@ export default class ClientView extends Component {
                           <View style={styles.formInputBox}>
                             <Picker
                               style={styles.formPicker}
-                              selectedValue={this.state.extension}
+                              selectedValue={this.state.formData.extension}
                               onValueChange={(itemValue, itemIndex) => this.handleInputChange({ extension: itemValue })}>
-                              <Picker.Item label={this.state.extensionText} value="" />
+                              <Picker.Item label={this.state.formData.extensionText} value="" />
                               {
-                                this.state.extensions.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                                this.state.formData.extensions.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
                               }
                             </Picker>
                           </View>
@@ -465,7 +531,7 @@ export default class ClientView extends Component {
                       onPress={() => this.handleDatePicker('birthdate')}
                     >
                       <Text style={styles.formInputText}>
-                        {this.state.birthdateText}
+                        {this.state.formData.birthdateText}
                       </Text>
                       <Icon name="date-range" size={30} color="#37474F" />
                     </TouchableOpacity>
@@ -476,12 +542,15 @@ export default class ClientView extends Component {
                       <TextInput
                         style={styles.formInputText}
                         onChangeText={(locality) => this.handleInputChange({ locality: locality })}
-                        value={this.state.locality}
+                        value={this.state.formData.locality}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.localityText}
+                        placeholder={this.state.formData.localityText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('homeAddress')}
                       />
                     </View>
                   </View>
@@ -489,14 +558,18 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="homeAddress"
                         style={styles.formInputText}
                         onChangeText={(homeAddress) => this.handleInputChange({ homeAddress: homeAddress })}
-                        value={this.state.homeAddress}
+                        value={this.state.formData.homeAddress}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.homeAddressText}
+                        placeholder={this.state.formData.homeAddressText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('businessAddress')}
                       />
                     </View>
                   </View>
@@ -504,14 +577,18 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="businessAddress"
                         style={styles.formInputText}
                         onChangeText={(businessAddress) => this.handleInputChange({ businessAddress: businessAddress })}
-                        value={this.state.businessAddress}
+                        value={this.state.formData.businessAddress}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.businessAddressText}
+                        placeholder={this.state.formData.businessAddressText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('workplace')}
                       />
                     </View>
                   </View>
@@ -519,12 +596,13 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="workplace"
                         style={styles.formInputText}
                         onChangeText={(workplace) => this.handleInputChange({ workplace: workplace })}
-                        value={this.state.workplace}
+                        value={this.state.formData.workplace}
                         keyboardType="default"
                         autoCapitalize="words"
-                        placeholder={this.state.workplaceText}
+                        placeholder={this.state.formData.workplaceText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
                       />
@@ -540,7 +618,7 @@ export default class ClientView extends Component {
                           onPress={() => this.handlePicker('activity', 'activities')}
                         >
                           <Text style={styles.formInputText}>
-                            {this.state.activityText}
+                            {this.state.formData.activityText}
                           </Text>
                           <Icon name="keyboard-arrow-down" size={30} color="#37474F" />
                         </TouchableOpacity>
@@ -548,11 +626,11 @@ export default class ClientView extends Component {
                           <View style={styles.formInputBox}>
                             <Picker
                               style={styles.formPicker}
-                              selectedValue={this.state.activity}
+                              selectedValue={this.state.formData.activity}
                               onValueChange={(itemValue, itemIndex) => this.handleInputChange({ activity: itemValue })}>
-                              <Picker.Item label={this.state.activityText} value="" />
+                              <Picker.Item label={this.state.formData.activityText} value="" />
                               {
-                                this.state.activities.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
+                                this.state.formData.activities.map(item => <Picker.Item label={item.label} value={item.value} key={item.value} />)
                               }
                             </Picker>
                           </View>
@@ -565,11 +643,14 @@ export default class ClientView extends Component {
                       <TextInput
                         style={styles.formInputText}
                         onChangeText={(occupationDescription) => this.handleInputChange({ occupationDescription: occupationDescription })}
-                        value={this.state.occupationDescription}
+                        value={this.state.formData.occupationDescription}
                         keyboardType="default"
-                        placeholder={this.state.occupationDescriptionText}
+                        placeholder={this.state.formData.occupationDescriptionText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('phoneNumberHome')}
                       />
                     </View>
                   </View>
@@ -577,24 +658,32 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="phoneNumberHome"
                         style={styles.formInputText}
                         onChangeText={(phoneNumberHome) => this.handleInputChange({ phoneNumberHome: phoneNumberHome })}
-                        value={this.state.phoneNumberHome}
+                        value={this.state.formData.phoneNumberHome}
                         keyboardType="phone-pad"
-                        placeholder={this.state.phoneNumberHomeText}
+                        placeholder={this.state.formData.phoneNumberHomeText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('phoneNumberMobile')}
                       />
                     </View>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="phoneNumberMobile"
                         style={styles.formInputText}
                         onChangeText={(phoneNumberMobile) => this.handleInputChange({ phoneNumberMobile: phoneNumberMobile })}
-                        value={this.state.phoneNumberMobile}
+                        value={this.state.formData.phoneNumberMobile}
                         keyboardType="phone-pad"
-                        placeholder={this.state.phoneNumberMobileText}
+                        placeholder={this.state.formData.phoneNumberMobileText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('phoneNumberOffice')}
                       />
                     </View>
                   </View>
@@ -602,13 +691,17 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={[styles.formInputBox, styles.formInputBoxMd]}>
                       <TextInput
+                        ref="phoneNumberOffice"
                         style={styles.formInputText}
                         onChangeText={(phoneNumberOffice) => this.handleInputChange({ phoneNumberOffice: phoneNumberOffice })}
-                        value={this.state.phoneNumberOffice}
+                        value={this.state.formData.phoneNumberOffice}
                         keyboardType="phone-pad"
-                        placeholder={this.state.phoneNumberOfficeText}
+                        placeholder={this.state.formData.phoneNumberOfficeText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('email')}
                       />
                     </View>
                   </View>
@@ -616,15 +709,19 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={[styles.formInputBox, styles.formInputBoxMd]}>
                       <TextInput
+                        ref="email"
                         style={styles.formInputText}
                         onChangeText={(email) => this.handleInputChange({ email: email })}
-                        value={this.state.email}
+                        value={this.state.formData.email}
                         keyboardType="email-address"
                         autoCapitalize="none"
                         autoCorrect={false}
-                        placeholder={this.state.emailText}
+                        placeholder={this.state.formData.emailText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('weight')}
                       />
                     </View>
                   </View>
@@ -632,24 +729,32 @@ export default class ClientView extends Component {
                   <View style={styles.formInputGroup}>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="weight"
                         style={styles.formInputText}
                         onChangeText={(weight) => this.handleInputChange({ weight: weight })}
-                        value={this.state.weight}
+                        value={this.state.formData.weight}
                         keyboardType="numeric"
-                        placeholder={this.state.weightText}
+                        placeholder={this.state.formData.weightText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="next"
+                        returnKeyLabel="Siguiente"
+                        onSubmitEditing={() => this._focusNextField('height')}
                       />
                     </View>
                     <View style={styles.formInputBox}>
                       <TextInput
+                        ref="height"
                         style={styles.formInputText}
                         onChangeText={(height) => this.handleInputChange({ height: height })}
-                        value={this.state.height}
+                        value={this.state.formData.height}
                         keyboardType="numeric"
-                        placeholder={this.state.heightText}
+                        placeholder={this.state.formData.heightText}
                         placeholderTextColor="#8E8E93"
                         underlineColorAndroid="transparent"
+                        returnKeyType="done"
+                        returnKeyLabel="Guardar"
+                        onSubmitEditing={() => this.handleStore()}
                       />
                     </View>
                   </View>
@@ -657,10 +762,51 @@ export default class ClientView extends Component {
               </KeyboardAwareScrollView>
             </ScrollView>
           ) : (
-            <View style={{flex: 1, alignSelf: 'stretch', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white',}}>
-              <View style={styles.formTitleBox}>
-                <Text style={styles.formTitleText}>Datos del Cliente</Text>
-              </View>
+            <View style={{flex: 1, alignSelf: 'stretch', alignItems: 'center', backgroundColor: 'white',}}>
+              {
+                details.length > 0 ? (
+                  <ScrollView
+                    style={styles.clientListContainer}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    {
+                      details.map((detail, index) => {
+                        return (
+                          <TouchableOpacity
+                            style={styles.clientListBox}
+                            activeOpacity={0.6}
+                            key={index}
+                          >
+                            <Text style={styles.clientListType}>{index === 0 ? 'T' : `C${index}`}</Text>
+                            <Text style={styles.clientListName}>
+                              {detail.client.firstName} {detail.client.lastName} {detail.client.motherLastName}
+                            </Text>
+                            <TouchableOpacity
+                              style={styles.clientListIconBox}
+                              activeOpacity={0.6}
+                            >
+                              <Icon name="mode-edit" size={25} color="#78909C" />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={styles.clientListIconBox}
+                              activeOpacity={0.6}
+                            >
+                              <Icon name="delete" size={25} color="rgba(255,56,36, 0.7)" />
+                            </TouchableOpacity>
+                          </TouchableOpacity>
+                        )
+                      })
+                    }
+                  </ScrollView>
+                ) : (
+                  <View style={css.formTitleContainer}>
+                    <View style={styles.formTitleBox}>
+                      <Text style={styles.formTitleText}>Datos del Cliente</Text>
+                    </View>
+                  </View>
+                )
+              }
             </View>
           )
         }
@@ -683,5 +829,8 @@ export default class ClientView extends Component {
 }
 
 const css = StyleSheet.create({
-  
+  formTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
 });

@@ -140,7 +140,7 @@ export default class CreateView extends Component {
   }
 
   handleStore = () => {
-    // this.props.navigation.navigate('DeClientView');
+    // this.props.navigation.navigate('DeClientView', {headerRef: {id: 'sss'}});
     const { coverage, amountRequested, currency, term, typeTerm, creditProduct } = this.state;
     const data = { coverage, amountRequested, currency, term, typeTerm, creditProduct };
     

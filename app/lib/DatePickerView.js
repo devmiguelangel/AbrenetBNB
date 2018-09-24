@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
-  DatePickerIOS,
   DatePickerAndroid,
+  DatePickerIOS,
   Dimensions,
   Modal,
   Platform,
@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import moment from 'moment';
 
 const deviceWidth = Dimensions.get('window').width;

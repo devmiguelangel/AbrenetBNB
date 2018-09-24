@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  View,
-  Picker,
   Animated,
   Dimensions,
-  TouchableHighlight,
-  Text,
-  PixelRatio,
   Modal,
+  Picker,
+  PixelRatio,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
 } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;

@@ -92,8 +92,6 @@ export default class QuestionView extends Component {
       })
       .then((docRef) => {
         this.setState({ loading: false, modal: false });
-
-        this.props.navigation.navigate('HomeListView');
       })
       .catch((error) => {
         this.setState({ loading: false });

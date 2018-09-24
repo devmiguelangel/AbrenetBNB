@@ -85,7 +85,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+  // Client list
+  clientListContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    paddingVertical: 10,
+  },
+  clientListBox: {
+    height: 65,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingVertical: 10,
+    borderTopWidth: 0.4,
+    borderTopColor: '#CFD8DC',
+    borderBottomWidth: 0.4,
+    borderBottomColor: '#CFD8DC',
+  },
+  clientListType: {
+    fontSize: 20,
+    fontFamily: 'Poppins-SemiBold',
+    marginHorizontal: 7,
+  },
+  clientListName: {
+    flex: 1,
+    fontFamily: 'Oxygen-Regular',
+    fontSize: 14,
+  },
+  clientListIconBox: {
+    marginRight: 5,
+    padding: 5,
+  },
   /* 
   modalBox: {
     backgroundColor: '#ECEFF1',
